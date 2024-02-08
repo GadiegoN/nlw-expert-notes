@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale'
-import { GripVertical, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { useRef } from 'react';
 import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd';
 
@@ -69,12 +69,9 @@ export function NoteCard({ index, note, onNoteDeleted, moveNote }: NoteCardProps
                     ref={ref}
                     className={isDragging ? "opacity-50" : "opacity-100"}
                 >
-                    <div className="flex justify-between">
-                        <span className="text-sm font-medium dark:text-slate-300 text-slate-700">
-                            {formatDistanceToNow(note.date, { locale: ptBR, addSuffix: true })}
-                        </span>
-                        <GripVertical className="cursor-grab dark:text-slate-300 text-slate-700" />
-                    </div>
+                    <span className="text-sm font-medium dark:text-slate-300 text-slate-700">
+                        {formatDistanceToNow(note.date, { locale: ptBR, addSuffix: true })}
+                    </span>
                     <p className="text-sm leading-6 dark:text-slate-400 text-slate-600">
                         {note.content}
                     </p>
