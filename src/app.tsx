@@ -48,6 +48,16 @@ export function App() {
     toast.info('Nota apagada!')
   }
 
+  const moveNote = (dragIndex: number, hoverIndex: number) => {
+    const draggedNote = notes[dragIndex];
+    const newNotes = [...notes];
+    newNotes.splice(dragIndex, 1);
+    newNotes.splice(hoverIndex, 0, draggedNote);
+    setNotes(newNotes);
+
+    localStorage.setItem('notes', JSON.stringify(newNotes))
+  };
+
   function handleSearch(event: ChangeEvent<HTMLInputElement>) {
     const query = event.target.value
 
@@ -76,8 +86,8 @@ export function App() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[250px] gap-6">
         <NewNoteCard onNoteCreated={onNoteCreated} />
 
-        {filteredNotes.map(note => {
-          return <NoteCard key={note.id} note={note} onNoteDeleted={onNoteDeleted} />
+        {filteredNotes.map((note, index) => {
+          return <NoteCard key={note.id} index={index} note={note} onNoteDeleted={onNoteDeleted} moveNote={moveNote} />
         })}
       </div>
     </div>
